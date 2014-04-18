@@ -1,0 +1,9 @@
+- security için client-server arası bir secret kullanılabilir
+- server için white/black list oluşturulabilir
+- sonuç listesinde arama-sıralama işlemleri
+- parametreler ayrı bir tab'de gösterilebilir?
++ servislerin serverlar arasında senkron edilebilmesi
+- excel export
+
+
+

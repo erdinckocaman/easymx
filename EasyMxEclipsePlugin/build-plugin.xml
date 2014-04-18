@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="build">
+	<target name="plugin_export">
+		<pde.exportPlugins destination="D:\data\proj\eclipse-workspace\EasyMxEclipsePlugin\dist" exportSource="true" exportType="zip" filename="EasyMxEclipsePlugin.zip" plugins="EasyMxEclipsePlugin" useJARFormat="true"/>
+	</target>
+</project>

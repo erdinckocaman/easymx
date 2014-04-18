@@ -1,0 +1,94 @@
+<project name="EasyMXLib">
+	
+	<property file="build.properties"></property>
+	
+	<path id="project.classpath">
+    	<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+
+	</path>
+	
+	<target name="prepare_temp_dir">
+		<echo message="temp dir path=${temp.dir}"/>
+		<mkdir dir="${temp.dir}" />
+		
+		<delete includeemptydirs="true">
+			<fileset dir="${temp.dir}" >
+				<include name="**/*"/>
+			</fileset>
+		</delete>
+
+	</target>
+	
+	
+    <target name="compile">
+    	<antcall target="prepare_temp_dir"></antcall>
+    	<echo message="Compiling with classpath=${project.classpath} build.dir=${build.dir} src.dir=${src.dir}" />
+    	
+    	<copy todir="${temp.dir}" >
+    		<fileset dir="${src.dir}">
+				<exclude name="**/*.java"/>    			
+    			<exclude name="log4j.properties"/>
+    		</fileset>
+    	</copy>
+    	
+        <javac  sourcepath="" srcdir="${src.dir}" destdir="${temp.dir}" 
+        	classpathref="project.classpath" debug="true" 
+        	target="${compile.target}" source="${compile.target}" >
+        	<include name="**/*.java"/>
+
+			
+    	</javac>
+    	
+
+    	
+    </target>
+	
+	<target name="jar" depends="compile">
+		<echo message="jar with basedir=${build.dir}, destfile=${dist.dir}/${dist.name}" />
+		<mkdir dir="${dist.dir}"/>
+		
+		<delete includeemptydirs="true">
+			<fileset dir="${dist.dir}" >
+				<include name="**/*"/>
+			</fileset>
+		</delete>	
+	
+		<delete file="${dist.jar}" verbose="true"></delete>
+		<jar destfile="${dist.jar}" basedir="${temp.dir}" />
+	</target>
+		
+	<target name="dist" depends="jar">
+    	<antcall target="prepare_temp_dir"></antcall>
+		
+	
+		
+		<fileset dir="${src.dir}" id="srcToRelease">
+        	<include name="**/*"/>  			
+		</fileset>
+    	
+    	<javadoc destdir="${temp.dir}/docs" classpathref="project.classpath">
+			<fileset refid="srcToRelease"></fileset>
+    	</javadoc>
+		
+		<copy todir="${temp.dir}/src">
+			<fileset refid="srcToRelease"> </fileset>
+		</copy>
+		
+		<copy todir="${temp.dir}" file="${dist.jar}">
+	
+		</copy>	
+    	
+    	<zip destfile="${dist.src}" >
+    		<fileset dir="${temp.dir}">
+    			<include name="**/*"/>
+    		</fileset>
+    		
+    	</zip>
+		
+		<antcall target="prepare_temp_dir"></antcall>
+	
+	</target>
+
+</project>
