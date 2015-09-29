@@ -7,6 +7,4 @@ Currently, Javalobby articles are available as documentation. You can find the l
   - An article explaining EasyMX way of management and monitoring is published on JavaLobby. You can reach the article [here][jlArticle]
 
 
-[//]:
-
    [jlarticle]: <https://dzone.com/articles/easymx-alternative-jmx>
